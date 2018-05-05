@@ -28,11 +28,14 @@ class ChartData(APIView):
     permission_classes = []
 
     def get(self, request, format=None):
-        qs_count = User.objects.all().count()
-        labels = ["Users", "Blue", "Yellow", "Green", "Purple", "Orange"]
-        default_items = [qs_count, 23, 2, 3, 12, 2]
+        # qs_count = User.objects.all().count()
+        labels = ["Blue", "Yellow", "Green", "Purple", "Orange"]
+        default_items = [23, 2, 3, 12, 2]
         data = {
                 "labels": labels,
                 "default": default_items,
         }
         return Response(data)
+
+def get(self, request, *args, **kwargs):
+        return render(request, 'charts.html', {"customers": 10})
