@@ -6,7 +6,7 @@ from . models import Add_Rainfall
 from . methods import list_city_rainfalls,create_labels,assign_colors,assign_borders
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from . forms import RainfallForm
+from . forms import RainfallForm, RainfallForm2
 
 
 User = get_user_model()
@@ -50,7 +50,7 @@ def add_rainfall(request):
 
     if request.method == 'POST':
 
-        form = RainfallForm(request.POST ,request.FILES)
+        form = RainfallForm2(request.POST ,request.FILES)
 
         if form.is_valid():
             city = form.cleaned_data['city']
@@ -58,7 +58,7 @@ def add_rainfall(request):
             new = Add_Rainfall(amount = amount , city =city)
             new.save()
 
-            return redirect( home)
+            return redirect('home')
     else:
-        form = RainfallForm() 
+        form = RainfallForm2() 
     return render(request, 'add_rainfall.html',{"form" : form})
