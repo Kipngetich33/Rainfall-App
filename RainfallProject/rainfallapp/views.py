@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic import View
+from . models import Add_Rainfall
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -37,5 +38,9 @@ class ChartData(APIView):
         }
         return Response(data)
 
-def get(self, request, *args, **kwargs):
-        return render(request, 'charts.html', {"customers": 10})
+def add_rainfall(request):
+    rainfall_object = Add_Rainfall(amount= 4, city = 'Nairobi')
+    rainfall_object.save()
+    all = Add_Rainfall.objects.all().count()
+    print(all)
+    return render(request, 'charts.html', {"customers": 10})

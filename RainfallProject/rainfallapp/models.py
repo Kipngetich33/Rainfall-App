@@ -1,10 +1,11 @@
 from django.db import models
 
-class Profile(models.Model):
+class Add_Rainfall(models.Model):
     '''
     class that defines the structure of each profile object
     '''
-    username = models.IntegerField()
+    amount = models.IntegerField()
+    city = models.CharField(max_length = 30, blank = True)
     
     def __str__(self):
-        return self.username
+        return self.city
