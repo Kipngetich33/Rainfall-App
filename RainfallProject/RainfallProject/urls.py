@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from .views import HomeView, get_data, ChartData
+from  rainfallapp.views import HomeView, get_data, ChartData
 
 
 urlpatterns = [
