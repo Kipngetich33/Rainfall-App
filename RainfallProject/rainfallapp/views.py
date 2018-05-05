@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic import View
 from . models import Add_Rainfall
-
+from . methods import list_city_rainfalls,create_labels,assign_colors,assign_borders
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -12,7 +12,11 @@ User = get_user_model()
 
 class HomeView(View):
     def get(self, request, *args, **kwargs):
-        return render(request, 'charts.html', {"customers": 10})
+        cities_count = Add_Rainfall.objects.all().count()
+        chosen_colors = assign_colors(cities_count)
+        chosen_borders = assign_borders(cities_count)
+        print(chosen_borders)
+        return render(request, 'charts.html', {"chosen_colors":chosen_colors,"chosen_borders":chosen_borders})
 
 
 
@@ -29,9 +33,9 @@ class ChartData(APIView):
     permission_classes = []
 
     def get(self, request, format=None):
-        # qs_count = User.objects.all().count()
-        labels = ["Blue", "Yellow", "Green", "Purple", "Orange"]
-        default_items = [23, 2, 3, 12, 2]
+        all_rainfall = Add_Rainfall.objects.all()
+        default_items = list_city_rainfalls(all_rainfall)
+        labels = create_labels(all_rainfall)
         data = {
                 "labels": labels,
                 "default": default_items,
@@ -39,8 +43,5 @@ class ChartData(APIView):
         return Response(data)
 
 def add_rainfall(request):
-    rainfall_object = Add_Rainfall(amount= 4, city = 'Nairobi')
-    rainfall_object.save()
     all = Add_Rainfall.objects.all().count()
-    print(all)
     return render(request, 'charts.html', {"customers": 10})
