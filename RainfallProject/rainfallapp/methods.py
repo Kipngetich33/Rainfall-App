@@ -38,3 +38,5 @@ def assign_borders(data):
         chosen_colors.append(background_colors[position])
     return chosen_colors
 
+
+
