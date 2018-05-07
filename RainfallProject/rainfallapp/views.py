@@ -6,7 +6,7 @@ from . models import Add_Rainfall
 from . methods import list_city_rainfalls,create_labels,assign_colors,assign_borders
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from . forms import RainfallForm, RainfallForm2
+from . forms import RainfallForm2
 
 
 User = get_user_model()
@@ -16,8 +16,21 @@ class home(View):
         cities_count = Add_Rainfall.objects.all().count()
         chosen_colors = assign_colors(cities_count)
         chosen_borders = assign_borders(cities_count)
-        print(chosen_borders)
-        return render(request, 'home.html', {"chosen_colors":chosen_colors,"chosen_borders":chosen_borders})
+        
+
+        if request.method == 'POST':
+            form = RainfallForm2(request.POST ,request.FILES)
+
+            if form.is_valid():
+                city = form.cleaned_data['city']
+                amount = form.cleaned_data['amount']
+                new = Add_Rainfall(amount = amount , city =city)
+                new.save()
+
+                return redirect('home')
+        else:
+            form = RainfallForm2()
+        return render(request, 'home.html', {"chosen_colors":chosen_colors,"chosen_borders":chosen_borders,"form":form})
 
 
 
