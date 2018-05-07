@@ -2,14 +2,9 @@
 
 <script>
     {% block jquery %}
-    const CHART = document.getElementById("lineChart");
-    console.log(CHART);
-
-    let lineChart = new Chart(CHART,{
-        type: 'line',
-        data:{
-            labels: ["January","February","March","April","May","June","July"],
-            datasets:[
+var endpoint = 'timeseries/'
+var generated_labels = ["January","February","March","April","May","June","July"]
+var generated_sets = [
                 {
                     label:"My first dataset",
                     fill: false,
@@ -30,15 +25,44 @@
                     pointRadius:1,
                     pointHitRadius:10,
                     data:[65,59,80,81,56,55,40],
-                }
-            ]
+                },
+                ]
+
+$.ajax({
+    method: "GET",
+    url: 'timeseries/',
+    success: function(data){
+        labels = data.labels
+        defaultData = data.default
+        draw_graph()
+    },
+    error: function(error_data){
+        console.log("error")
+        console.log(error_data)
+    }
+})
+
+function draw_graph(){
+    const CHART = document.getElementById("lineChart");
+    console.log(CHART);
+
+    let lineChart = new Chart(CHART,{
+        type: 'line',
+        data:{
+            labels: generated_labels,
+            datasets: generated_sets,
 
         }
     })
-    {% endblock%}
+      
+
+}
+              
+{% endblock%}
 </script>
 {% block content %} 
-Time Series Pages
-        <hr>
-        <canvas id="lineChart" height="400" width="400" style="border:solid black;"></canvas>
+<h1>Time Series Pages</h1>
+<div style="height:500px;width:500px;">
+        <canvas id="lineChart" height="400" width="400" ></canvas>
+</div>
 {% endblock %}
