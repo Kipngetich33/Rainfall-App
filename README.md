@@ -8,7 +8,7 @@ Kipngetich Ngeno
 
 ## DESCRIPTION
 
-This is a web application that allows users to record Rainfall in different cities in the country as well as see a display of this data in the form of chart
+This is a web application that allows users to record Rainfall in different cities as well as see a display of this data in the form of chart
 
 ## Set Up and Installation
 Still under construction
