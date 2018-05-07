@@ -16,11 +16,12 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from  rainfallapp.views import home, get_data, chart, add_rainfall
+from  rainfallapp.views import home, get_data, chart, add_rainfall,timeseries
 
 
 urlpatterns = [
     url(r'^$', home.as_view(), name='home'),
+    url(r'^timeseries/', timeseries.as_view(), name='timeseries'),
     url(r'^api/data/$', get_data, name='api-data'),
     url(r'^rainfall/add', add_rainfall, name='Add-Rainfall'),
     url(r'^api/chart/data/$', chart.as_view()),

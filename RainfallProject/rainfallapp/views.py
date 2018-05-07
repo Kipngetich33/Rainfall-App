@@ -62,3 +62,12 @@ def add_rainfall(request):
     else:
         form = RainfallForm2() 
     return render(request, 'add_rainfall.html',{"form" : form})
+
+
+class timeseries(View):
+    def get(self, request, *args, **kwargs):
+        cities_count = Add_Rainfall.objects.all().count()
+        chosen_colors = assign_colors(cities_count)
+        chosen_borders = assign_borders(cities_count)
+        print(chosen_borders)
+        return render(request, 'timeseries.html', {"chosen_colors":chosen_colors,"chosen_borders":chosen_borders})
