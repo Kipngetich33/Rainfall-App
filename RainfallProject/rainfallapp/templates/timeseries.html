@@ -2,8 +2,8 @@
 
 <script>
     {% block jquery %}
-var endpoint = 'timeseries/'
-var generated_labels = ["January","February","March","April","May","June","July"]
+var endpoint = 'api/chart/series/'
+var generated_labels = []
 var generated_sets = [
                 {
                     label:"My first dataset",
@@ -32,7 +32,7 @@ $.ajax({
     method: "GET",
     url: 'timeseries/',
     success: function(data){
-        labels = data.labels
+        generated_labels = data.labels
         defaultData = data.default
         draw_graph()
     },

@@ -69,5 +69,18 @@ class timeseries(View):
         cities_count = Add_Rainfall.objects.all().count()
         chosen_colors = assign_colors(cities_count)
         chosen_borders = assign_borders(cities_count)
-        print(chosen_borders)
         return render(request, 'timeseries.html', {"chosen_colors":chosen_colors,"chosen_borders":chosen_borders})
+
+
+class seriesChart(APIView):
+    authentication_classes = []
+    permission_classes = []
+
+    def get(self, request, format=None):
+        labels = ["January","February","March","April","May","June","July"]
+        default_items = []
+        data = {
+                "labels": labels,
+                "default": default_items,
+        }
+        return Response(data)

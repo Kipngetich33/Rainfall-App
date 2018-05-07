@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from  rainfallapp.views import home, get_data, chart, add_rainfall,timeseries
+from  rainfallapp.views import home, get_data, chart, add_rainfall,timeseries,seriesChart
 
 
 urlpatterns = [
@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^api/data/$', get_data, name='api-data'),
     url(r'^rainfall/add', add_rainfall, name='Add-Rainfall'),
     url(r'^api/chart/data/$', chart.as_view()),
+    url(r'^api/chart/series/$', seriesChart.as_view()),
     url(r'^admin/', admin.site.urls),
 
 ]
